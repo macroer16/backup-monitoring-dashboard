@@ -1,0 +1,69 @@
+name: Nightly backup
+
+on:
+  schedule:
+    - cron: "23 2 * * *"   # 02:23 UTC every night
+  workflow_dispatch:         # "Run workflow" button for a backup on demand
+  push:
+    branches: [main]
+    paths: ["backup/**", ".github/workflows/backup.yml"]
+
+permissions:
+  contents: write   # push results to the backup-data branch
+  issues: write     # open and close failure alerts
+
+concurrency:
+  group: backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      # The history lives on its own branch so nightly results never clutter main.
+      - name: Get backup history
+        run: |
+          mkdir data-branch && cd data-branch
+          git init -q -b backup-data
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git pull -q --depth 1 origin backup-data || echo "No history yet: this is the first run."
+
+      - name: Back up and restore-test every repository
+        id: backup
+        run: node backup/run-backup.mjs --owner "${GITHUB_REPOSITORY_OWNER}" --out backups --history data-branch/history.json
+
+      - name: Keep the backup files for 30 days
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-backups-${{ github.run_id }}
+          path: backups/*.bundle
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Save results for the dashboard
+        working-directory: data-branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add history.json
+          git commit -q -m "Backup run ${GITHUB_RUN_ID}"
+          git push -q origin backup-data
+
+      - name: Open or close alert issues
+        run: node backup/alert.mjs data-branch/history.json
+
+      # Failing the job also triggers GitHub's own "workflow failed" email.
+      - name: Fail if any backup failed
+        if: steps.backup.outputs.failed != ''
+        run: |
+          echo "::error::Backups failed for: ${{ steps.backup.outputs.failed }}"
+          exit 1
