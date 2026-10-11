@@ -1,0 +1,9 @@
+{
+  "name": "backup-monitoring-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "backup": "node backup/run-backup.mjs --owner macroer16 --out backups --history data/history.json"
+  }
+}
