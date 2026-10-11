@@ -1,1 +1,88 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Backup Monitoring Dashboard</title><link rel="stylesheet" href="style.css"></head><body><header><h1>Backup Monitoring Dashboard</h1><p>Managed IT portfolio demonstration</p></header><main><div class="notice">Demo only — all client names, backup data and alerts are fictional.</div><section class="stats"><div><b id="ok">0</b><span>Successful</span></div><div><b id="warn">0</b><span>Warnings</span></div><div><b id="fail">0</b><span>Failed</span></div><div><b>24h</b><span>Monitoring window</span></div></section><section><h2>Backup status</h2><input id="search" placeholder="Search client or system"><table><thead><tr><th>Client / system</th><th>Last backup</th><th>Storage</th><th>Status</th><th>Action</th></tr></thead><tbody id="rows"></tbody></table></section><section><h2>Alert centre</h2><div id="alerts"></div></section><section><h2>Cloud concepts behind this project</h2><p>A real version could use Amazon S3 for backup storage, CloudWatch for monitoring and metrics, SNS for alerts, IAM for access control, and a disaster-recovery plan for restoring data.</p></section></main><footer>Student portfolio project · No real backups are monitored</footer><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backup monitor · macroer16</title>
+  <meta name="description" content="Live status of nightly, restore-tested backups of every public repository on github.com/macroer16.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%2320292c'/%3E%3Crect x='3' y='4' width='2' height='9' fill='%231d7a4c'/%3E%3Crect x='7' y='4' width='2' height='9' fill='%231d7a4c'/%3E%3Crect x='11' y='7' width='2' height='6' fill='%23e0a030'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap bar-inner">
+      <p class="product">Backup monitor</p>
+      <p class="scope">Nightly backups of every public repo on <a href="https://github.com/macroer16">github.com/macroer16</a></p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="state" id="state" data-level="loading" aria-live="polite">
+      <div>
+        <h1 id="state-title">Loading backup history…</h1>
+        <p id="state-detail" class="muted"></p>
+      </div>
+      <a id="log-link" class="log-link" href="https://github.com/macroer16/backup-monitoring-dashboard/actions/workflows/backup.yml">Job logs</a>
+    </section>
+
+    <dl class="metrics" id="metrics" hidden>
+      <div><dt>Repositories</dt><dd id="m-repos">-</dd></div>
+      <div><dt>Healthy</dt><dd id="m-ok">-</dd></div>
+      <div><dt>Warnings</dt><dd id="m-warn">-</dd></div>
+      <div><dt>Failed</dt><dd id="m-fail">-</dd></div>
+      <div><dt>Backed up</dt><dd id="m-size">-</dd></div>
+      <div><dt>Runs recorded</dt><dd id="m-runs">-</dd></div>
+    </dl>
+
+    <section id="alerts-section" hidden>
+      <h2>Needs attention</h2>
+      <ul id="alerts" class="alerts"></ul>
+    </section>
+
+    <section id="repos-section" hidden>
+      <div class="table-head">
+        <h2>Repositories</h2>
+        <div class="filters">
+          <label for="filter" class="visually-hidden">Filter repositories</label>
+          <input id="filter" type="search" placeholder="Filter by name" autocomplete="off">
+          <label class="check"><input id="problems-only" type="checkbox"> Problems only</label>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Repository</th>
+              <th scope="col">Status</th>
+              <th scope="col">Last 30 runs <span class="legend" aria-hidden="true"><i class="tick success"></i>ok <i class="tick warning"></i>warn <i class="tick failed"></i>failed</span></th>
+              <th scope="col">Last success</th>
+              <th scope="col" class="num">Size</th>
+              <th scope="col" class="num">Commits</th>
+              <th scope="col">Checksum (SHA-256)</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p id="empty-filter" class="muted" hidden>No repositories match.</p>
+    </section>
+
+    <section class="how">
+      <h2>How it works</h2>
+      <ol>
+        <li>Every night at 02:23 UTC a GitHub Actions job lists my public repositories and mirrors each one, with every branch and tag.</li>
+        <li>Each mirror is packed into a single <code>git bundle</code> file, checked with <code>git bundle verify</code>, and given a SHA-256 checksum.</li>
+        <li><strong>Restore test:</strong> the job restores every bundle into a fresh folder and checks that the latest commit matches. A backup that can't be restored counts as failed.</li>
+        <li>Bundles are kept for 30 days as job artifacts. The results are added to <code>history.json</code> on the <code>backup-data</code> branch, which is what this page reads.</li>
+        <li>A failure opens a GitHub issue, which emails me, and the issue closes itself when the next backup works.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="wrap foot muted">
+    <a href="https://github.com/macroer16/backup-monitoring-dashboard">Source code</a> · Built by Victor Benson
+  </footer>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
