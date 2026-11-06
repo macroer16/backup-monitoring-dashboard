@@ -4195,6 +4195,157 @@
     }
    ],
    "finishedAt": "2026-11-05T09:35:25.812Z"
+  },
+  {
+   "id": "42195348610",
+   "trigger": "schedule",
+   "startedAt": "2026-11-06T09:28:52.882Z",
+   "repos": [
+    {
+     "name": "backup-monitoring-dashboard",
+     "restoreOk": true,
+     "head": "4db6d25",
+     "commits": 36,
+     "sizeBytes": 227398,
+     "sha256": "3cd97d1432f3a9976ccfd7509cf84e17adf08939078ed99975bc5719f782857d",
+     "durationMs": 455,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "carecircle",
+     "restoreOk": true,
+     "head": "28f9ad2",
+     "commits": 22,
+     "sizeBytes": 162982,
+     "sha256": "eb48b83d206bcce596c142549c9f944c89f27e86217b2aca742be5319faf7561",
+     "durationMs": 461,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "cloudvault-file-manager",
+     "restoreOk": true,
+     "head": "d191207",
+     "commits": 2,
+     "sizeBytes": 3839,
+     "sha256": "a13a60ddc87e352d141502e15f23542fcd1d961dcd087ede243343939f6a6115",
+     "durationMs": 289,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "cyber-security-readiness-checker",
+     "restoreOk": true,
+     "head": "66d6afe",
+     "commits": 12,
+     "sizeBytes": 413222,
+     "sha256": "1bb0e5a453fc459574fce1e770553579d41698d90ab0195bd75ab0a056be8a46",
+     "durationMs": 415,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "dsa-practice",
+     "restoreOk": true,
+     "head": "8ca5baf",
+     "commits": 14,
+     "sizeBytes": 21848,
+     "sha256": "9761d04bfc15d88b1b071320de80e228bb81f9797edf5252bb67c15754dee8f1",
+     "durationMs": 351,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "employee-access-checklist",
+     "restoreOk": true,
+     "head": "7d65f6b",
+     "commits": 12,
+     "sizeBytes": 200743,
+     "sha256": "434fffa92b70c57704ed2a73f5b56f69190ebfc10b6fc7df7b9aba545ae43261",
+     "durationMs": 371,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "it-asset-management-system",
+     "restoreOk": true,
+     "head": "48fe4c0",
+     "commits": 2,
+     "sizeBytes": 1384,
+     "sha256": "014688a2a35db59eb5c253d0ae8399ad65aa29a950a3686bba81cddd81283a97",
+     "durationMs": 371,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "k8s-gitops-platform",
+     "restoreOk": true,
+     "head": "17637ed",
+     "commits": 22,
+     "sizeBytes": 488797,
+     "sha256": "f5f3beb008909e42f1400ddc3f5f21bc12e0554ffae675518ff6e7239c579a72",
+     "durationMs": 455,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "macroer16",
+     "restoreOk": true,
+     "head": "106881e",
+     "commits": 15,
+     "sizeBytes": 10136,
+     "sha256": "0f4ec25f1fc4beab917c3f9aba3910e3ed92c935e8c5b78f7e866ab4fba2b78a",
+     "durationMs": 1025,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "number-systems-converter",
+     "restoreOk": true,
+     "head": "80c4cbc",
+     "commits": 10,
+     "sizeBytes": 95489,
+     "sha256": "e2761ef441153acaba6ac3d6b6aaff8ed9000d4dfcca4d8d6a5ce743c4a11ef4",
+     "durationMs": 366,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "password-generator",
+     "restoreOk": true,
+     "head": "ff497dc",
+     "commits": 13,
+     "sizeBytes": 131372,
+     "sha256": "58b0b34ece8e0db46929ca923dbe15a7a1d80d14eaec55e7d203cbf829a50d4c",
+     "durationMs": 387,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "uni-deadline-tracker-api",
+     "restoreOk": true,
+     "head": "cba1f04",
+     "commits": 22,
+     "sizeBytes": 477102,
+     "sha256": "54ad6447ac59fd7b5c8967b6f5f34198eadc1756ae959d5fcc45bf480509d641",
+     "durationMs": 483,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    },
+    {
+     "name": "victor-cloud-portfolio",
+     "restoreOk": true,
+     "head": "0495f88",
+     "commits": 16,
+     "sizeBytes": 18728,
+     "sha256": "68d253f65600b3ec0fe9cad56d66ca9f81c60e26cc4c0f72ec71160d458ab66d",
+     "durationMs": 387,
+     "status": "success",
+     "reason": "Backed up, verified and restore-tested."
+    }
+   ],
+   "finishedAt": "2026-11-06T09:28:59.413Z"
   }
  ]
 }
